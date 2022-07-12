@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="static/libs/anime/anime.min.js"></script>
+  <script src="static/libs/scrollReveal/scrollreveal.min.js"></script>
+  <link rel="stylesheet" href="static/css/buttonRapple.css">
+
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.css" />
+  <link rel="stylesheet" href="static/css/consult.css">
+  <link rel="stylesheet" href="static/css/font-awesome.css">
+  <link rel="stylesheet" href="static/libs/glide/glide.core.min.css" />
+  <link rel="stylesheet" href="static/libs/glide/glide.theme.min.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="static/css/buttonEffect.css">
+  <title>光清木材加工厂</title>
+  <canvas class="fireworks"
+    style="position: fixed; left: 0px; top: 0px; z-index: 1; pointer-events: none; width: 1440px; height: 451px;"
+    width="2880" height="902"></canvas>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/UniqueYou/myjs@main/anime.min.js"></script>
+</head>
+
+<body>
+  <!--这段代码有毒，不能作为外引文件。插入位置body中-->
+  <canvas class="fireworks"
+    style="position: fixed; left: 0px; top: 0px; z-index: 1; pointer-events: none; width: 1440px; height: 451px;"
+    width="2880" height="902"></canvas>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/UniqueYou/myjs@main/anime.min.js"></script>
+  <script type="text/javascript">
+    "use strict";
+    function updateCoords(e) {
+      pointerX = (e.clientX || e.touches[0].clientX) - canvasEl.getBoundingClientRect().left, pointerY = e.clientY || e.touches[0].clientY - canvasEl.getBoundingClientRect().top
+    }
+
+    function setParticuleDirection(e) {
+      var t = anime.random(0, 360) * Math.PI / 180,
+        a = anime.random(50, 180),
+        n = [-1, 1][anime.random(0, 1)] * a;
+      return {
+        x: e.x + n * Math.cos(t),
+        y: e.y + n * Math.sin(t)
+      }
+    }
+
+    function createParticule(e, t) {
+      var a = {};
+      return a.x = e, a.y = t, a.color = colors[anime.random(0, colors.length - 1)], a.radius = anime.random(16, 32), a.endPos = setParticuleDirection(a), a.draw = function () {
+        ctx.beginPath(), ctx.arc(a.x, a.y, a.radius, 0, 2 * Math.PI, !0), ctx.fillStyle = a.color, ctx.fill()
+      }, a
+    }
+
+    function createCircle(e, t) {
+      var a = {};
+      return a.x = e, a.y = t, a.color = "#F00", a.radius = 0.1, a.alpha = 0.5, a.lineWidth = 6, a.draw = function () {
+        ctx.globalAlpha = a.alpha, ctx.beginPath(), ctx.arc(a.x, a.y, a.radius, 0, 2 * Math.PI, !0), ctx.lineWidth = a.lineWidth, ctx.strokeStyle = a.color, ctx.stroke(), ctx.globalAlpha = 1
+      }, a
+    }
+
+    function renderParticule(e) {
+      for (var t = 0; t < e.animatables.length; t++) {
+        e.animatables[t].target.draw()
+      }
+    }
+
+    function animateParticules(e, t) {
+      for (var a = createCircle(e, t), n = [], i = 0; i < numberOfParticules; i++) {
+        n.push(createParticule(e, t))
+      }
+      anime.timeline().add({
+        targets: n,
+        x: function (e) {
+          return e.endPos.x
+        },
+        y: function (e) {
+          return e.endPos.y
+        },
+        radius: 0.1,
+        duration: anime.random(1200, 1800),
+        easing: "easeOutExpo",
+        update: renderParticule
+      }).add({
+        targets: a,
+        radius: anime.random(80, 160),
+        lineWidth: 0,
+        alpha: {
+          value: 0,
+          easing: "linear",
+          duration: anime.random(600, 800)
+        },
+        duration: anime.random(1200, 1800),
+        easing: "easeOutExpo",
+        update: renderParticule,
+        offset: 0
+      })
+    }
+
+    function debounce(e, t) {
+      var a;
+      return function () {
+        var n = this,
+          i = arguments;
+        clearTimeout(a), a = setTimeout(function () {
+          e.apply(n, i)
+        }, t)
+      }
+    }
+    var canvasEl = document.querySelector(".fireworks");
+    if (canvasEl) {
+      var ctx = canvasEl.getContext("2d"),
+        numberOfParticules = 30,
+        pointerX = 0,
+        pointerY = 0,
+        tap = "mousedown",
+        colors = ["#FF1461", "#18FF92", "#5A87FF", "#FBF38C"],
+        setCanvasSize = debounce(function () {
+          canvasEl.width = 2 * window.innerWidth, canvasEl.height = 2 * window.innerHeight, canvasEl.style.width = window.innerWidth + "px", canvasEl.style.height = window.innerHeight + "px", canvasEl.getContext("2d").scale(2, 2)
+        }, 500),
+        render = anime({
+          duration: 1 / 0,
+          update: function () {
+            ctx.clearRect(0, 0, canvasEl.width, canvasEl.height)
+          }
+        });
+      document.addEventListener(tap, function (e) {
+        "sidebar" !== e.target.id && "toggle-sidebar" !== e.target.id && "A" !== e.target.nodeName && "IMG" !== e.target.nodeName && (render.play(), updateCoords(e), animateParticules(pointerX, pointerY))
+      }, !1), setCanvasSize(), window.addEventListener("resize", setCanvasSize, !1)
+    };
+  </script>
+  <!--客服沟通接入-->
+  <div class="floating_ck">
+    <dl>
+      <dt></dt>
+      <dd class="consult">
+        <span>在线咨询</span>
+        <div class="floating_left"><a href="#">真空技术在线咨询</a></div>
+      </dd>
+      <dd class="words">
+        <span>在线留言</span>
+        <div class="floating_left"><a href="#">需求留言</a></div>
+      </dd>
+      <dd class="quote">
+        <span>索要报价</span>
+        <div class="floating_left"><a href="#">索要产品报价表</a></div>
+      </dd>
+      <dd class="qrcord">
+        <span>联系方式</span>
+        <div class="floating_left floating_ewm">
+          <i><img src="resource/image/wechat.png"></i>
+          <p class="qrcord_p01">扫一扫<br>微信联系方式</p>
+        </div>
+      </dd>
+    </dl>
+  </div>
+  <!-- 头部 -->
+  <header class="open">
+    <div class="logo">光清木材加工厂</div>
+    <!-- 导航 -->
+    <nav>
+      <a href="#">主页内容</a>
+      <a href="#">关于我们</a>
+      <a href="#">产品展示</a>
+      <a href="#">工程案例</a>
+      <a href="#">最新动态</a>
+      <a href="#">联系我们</a>
+      <div class="animation start-home"></div>
+    </nav>
+    <!-- 折叠导航按钮 -->
+    <div class="burger">
+      <div class="burger-line1"></div>
+      <div class="burger-line2"></div>
+      <div class="burger-line3"></div>
+    </div>
+  </header>
+  <!-- 首页图片轮播，使用glide JS插件（完成） -->
+  <div class="glide" id="home">
+    <!-- 轮播轨道 data-glide-el="track"-->
+    <div class="glide__track" data-glide-el="track">
+      <!-- 所有轮播容器 -->
+      <div class="glide__slides">
+        <!-- 单个轮播组件 -->
+        <div class="glide__slide">
+          <!-- 轮播标题 -->
+          <div class="slide-caption">
+            <h1>用创新点缀人生，让科技融入理想。</h1>
+            <h3>
+              科技创新大平台，智慧生活新引擎。依靠科技进步推进经济跨越式发展。用创新点缀人生，让科技融入理想。
+            </h3>
+            <!-- 探索按钮 -->
+            <button class="explore-btn">探索更多</button>
+          </div>
+          <!-- 背景遮罩 -->
+          <div class="backdrop"></div>
+          <!-- 轮播图片 -->
+          <img src="resource/image/activity01-image.jpg" alt="" />
+        </div>
+        <!-- 第二张轮播 -->
+        <div class="glide__slide">
+          <div class="slide-caption left">
+            <h1>科技改变世界</h1>
+            <h3>
+              立足科学发展，着力自主创新。加速科技进步，为全市经济社会发展提供有力支撑。凝聚科技创意，成就创新梦想。
+            </h3>
+            <button class="explore-btn">探索更多</button>
+          </div>
+          <div class="backdrop"></div>
+          <!-- 轮播视频 -->
+          <video src="resource/video/working-man.mp4" muted autoplay loop></video>
+        </div>
+      </div>
+    </div>
+    <!-- glide 控制按钮 -->
+    <div class="glide__arrows" data-glide-el="controls">
+      <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
+      </button>
+      <button class="glide__arrow glide__arrow--right" data-glide-dir=">">>
+      </button>
+    </div>
+    <!-- glide 控制圆点 -->
+    <div class="glide__bullets" data-glide-el="controls[nav]">
+      <button class="glide__bullet" data-glide-dir="=0"></button>
+      <button class="glide__bullet" data-glide-dir="=1"></button>
+    </div>
+  </div>
+
+
+  <!--主要业务（完成）-->
+  <div class="content-wrapper">
+    <!--关于我们，id用来导航菜单跳转-->
+    <section id="mainBusiness" class="about-us">
+      <!--标题-->
+      <h2 class="title1">关于我们</h2>
+      <!--补充说明区域-->
+      <p class="intro">
+        立足科学发展，着力自主创新。加速科技进步，为全市经济社会发展提供有力支撑。凝聚科技创意，成就创新梦想。
+      </p>
+      <!--公司业务容器、栅格布局-->
+      <div class="features">
+        <!--公司业务-->
+
+
+        <div class="feature">
+          <!--左侧业务图标-->
+          <i class="fas fa-lightbulb"></i>
+          <!--右侧业务标题-->
+          <h4 class="feature-title">优质服务</h4>
+          <!--右侧业务内容-->
+          <p class="feature-content">
+            业务内容展示
+          </p>
+        </div>
+        <!--去除显示后，单个内容-->
+
+        <div class="feature">
+          <i class="fas fa-shopping-cart"></i>
+          <h4>质量保障</h4>
+          <p class="feature-content">
+            爱惜材料一次一缕，珍惜原料一点一滴</p>
+        </div>
+
+        <div class="feature">
+          <i class=""></i>
+          <h4>测试项目一</h4>
+          <p class="feature-content">
+            测试内容二
+          </p>
+        </div>
+
+        <div class="feature">
+          <i class="fa-search"></i>
+          <h4>测试标题二</h4>
+          <p class="feature-content"></p>
+          测试项目三
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+    <!--工程案例（完成）-->
+    <section id="showProduct" class="showcases section-bg">
+      <h2 class="title1">工程案例</h2>
+      <!--筛选按钮-->
+      <div class="filter-btns">
+        <button class="filter-btn active" data-filter="*">
+          全部
+        </button>
+
+        <!--指定要过滤的class selector，包括-->
+        <button class="filter-btn" data-filter=".web">托盘</button>
+        <button class="filter-btn" data-filter=".mobile">建筑供料</button>
+        <button class="filter-btn" data-filter=".science">吊顶材料</button>
+      </div>
+
+      <!--案例显示图片-->
+      <div class="cases">
+        <!--case-item样式类-->
+        <div class="case-item web science">
+          <!--图片-->
+          <img src="resource/image/gray-laptop-computer-showing-html-codes-in-shallow-focus-160107.jpg" />
+        </div>
+
+        <div class="case-item web science">
+          <img src="" />
+        </div>
+
+
+        <!--木材-->
+        <div class="case-item mobile"></div>
+        <img src="" alt="" />
+      </div>
+
+      <!--服务流程-->
+      <section id="service" class="service">
+        <h2 class="title1">服务流程</h2>
+        <p class="intro">
+          木材加工厂提供建筑行业各种材料、吊顶原材料、工程料
+        </p>
+
+        <!--服务容器-->
+        <div class="services">
+          <div class="service-item">
+            <i class="fas fa-comments"></i>
+            <h2 class="service-title">需求沟通</h2>
+            <p class="service-content">客户通过网站联系厂方签订合同，包括订单定金、</p>
+          </div>
+
+          <div class="service-item">
+            <i class="fas fa-gravel"></i>
+            <h2 class="service-title">项目评估</h2>
+            <p class="service-content">测试内容2</p>
+          </div>
+
+          <div class="service-item">
+            <i class="fas fa-gravel"></i>
+            <h2 class="service-title">项目评估2</h2>
+            <p class="service-content">测试内容3</p>
+          </div>
+        </div>
+      </section>
+
+      <!--数据展示（完成）-->
+      <section id="data-section" class="data-section">
+
+        <!--单个数据-->
+        <div class="data-piece">
+          <!--图标-->
+          <i class="fas fa-code"></i>
+          <!--数据-->
+          <div class="num">156</div>
+          <div class="data-desc">行代码</div>
+        </div>
+
+        <div class="data-piece">
+          <i class="fas fa-award"></i>
+          <div class="num">288</div>
+          <div class="data-desc">个奖项</div>
+        </div>
+        <div class="data-piece">
+          <i class="fas fa-laugh-wink"></i>
+          <div class="num">1588</div>
+          <div class="data-desc">位客户</div>
+        </div>
+        <div class="data-piece">
+          <i class="fas fa-folder"></i>
+          <div class="num">200</div>
+          <div class="data-desc">个项目</div>
+        </div>
+      </section>
+
+      <!--最新动态（完成）-->
+      <section id="company-activities" class="company-activities">
+        <h2 class="title1">企业动态</h2>
+        <p class="intro">关注官网动态，第一时间获取一手消息</p>
+
+        <!--动态容器-->
+        <div class="activities">
+          <!--动态-->
+          <div class="activity">
+            <!--动态图片-->
+            <div class="act-image-wrapper">
+              <img src="resource/image/activity01-image.jpg" alt="">
+            </div>
+            <!--动态元数据，发表日期和评论数量-->
+            <div class="meta">
+              <!--发表日期-->
+              <p class="date-published">
+                <i class="date-published"></i>2019年12月1日
+              </p>
+              <p class="comments"><i class="far fa-comments">33条评论</i></p>
+            </div>
+            <!--动态标题-->
+            <h2 class="act-title">提供互联网接入的ISP公司</h2>
+            <!--动态内容摘要简介-->
+            <article>
+              这里填写动态阅读内容简述
+            </article>
+            <!--阅读更多按钮-->
+            <button class="readmore-btn circle">阅读更多</button>
+          </div>
+
+          <!--仿照添加更多的文章-->
+          <div class="activity">
+            <div class="ac-image-wrapper">
+              <img src="resource/image/apple-laptop-notebook-office-39284.jpg" alt="">
+            </div>
+            <div class="meta">
+              <p class="date-published">
+                <i class="far fa-calendar"></i>2019年10月1日
+              </p>
+              <p class="comments"><i class="far fa-comments">56条评论</i></p>
+            </div>
+            <h2 class="act-title">第二篇文章的标题</h2>
+            <article>
+              第二篇文章简介内容
+            </article>
+            <button class="readmore-btn circle">阅读更多</button>
+          </div>
+
+          <div class="activity">
+            <div class="ac-image-wrapper">
+              <img src="resource/image/apple-apple-device-design-desk-285814.jpg" alt="">
+            </div>
+            <div class="meta">
+              <p class="date-published">
+                <i class="far fa-calendar"></i>2019年10月1日
+              </p>
+              <p class="comments"><i class="far fa-comments">56条评论</i></p>
+            </div>
+            <h2 class="act-title">第二篇文章的标题</h2>
+            <article>
+              第二篇文章简介内容
+            </article>
+            <button class="readmore-btn circle">阅读更多</button>
+          </div>
+
+        </div>
+      </section>
+  </div>
+
+  <!--底部信息（完成）-->
+  <footer>
+    <!--底部菜单-->
+    <div class="footer-menus">
+      <!--联系信息-->
+      <div class="contract-us">
+        <p class="menu-title">联系我们</p>
+        <p class="icp-info">地址：中国江西省萍乡市经济开发区硖石管理处10号楼</p>
+        <p class="icp-info">电话：13879908533</p>
+        <p class="icp-info">传真：13879908533</p>
+        <p class="icp-info">电子邮箱：2890788802@qq.com</p>
+      </div>
+      <!--导航菜单-->
+      <div class="service-menu footer-menu">
+        <p class="menu-title">服务概览</p>
+        <ul class="menu-items">
+          <li a href="#">底部测试项目一</li>
+          <li a href="#">底部测试项目二</li>
+          <li a href="#">底部测试项目三</li>
+        </ul>
+      </div>
+
+      <div class="service-menu footer-menu">
+        <p class="menu-title">服务概览</p>
+        <ul class="menu-items">
+          <li a href="#">底部测试项目一</li>
+          <li a href="#">底部测试项目二</li>
+          <li a href="#">底部测试项目三</li>
+        </ul>
+      </div>
+
+      <div class="service-menu footer-menu">
+        <p class="menu-title">服务概览</p>
+        <ul class="menu-items">
+          <li a href="#">底部测试项目一</li>
+          <li a href="#">底部测试项目二</li>
+          <li a href="#">底部测试项目三</li>
+        </ul>
+      </div>
+
+      <!--备案信息-->
+      <p class="icp-info">
+        这里展示备案信息
+      </p>
+      <!--返回顶部按钮-->
+      <div class="scrollToTop">
+        <a href="#home"><i class="fas fa-chevron-up"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!--公司动态-->
+  <!-- 轮播插件 -->
+  <script src="static/libs/glide/glide.min.js"></script>
+  <!-- 案例筛选组件  -->
+  <script src="static/libs/isotope/isotope.pkgd.min.js"></script>
+  <!-- 动画组件 -->
+  <script src="static/libs/anime/anime.min.js"></script>
+  <!-- 流畅滑动组件 -->
+  <script src="static/libs/smooth-scroll/smooth-scroll.polyfills.min.js"></script>
+  <!-- 自定义JS文件 -->
+  <script src="index.js"></script>
+  <script src="static/js/buttonRapple.js"></script>
+  <script src="static/js/demo.js"></script>
+</body>
+
+</html>
