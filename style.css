@@ -415,17 +415,17 @@ section {
 /*=================产品展示（完成）==================*/
 .showcases {
   max-width: unset;
-  padding: 0px;
+  padding: 0;
   padding-top: 72px;
 }
 
-/*案例筛选选择容器*/
+/* 案例筛选按钮容器 */
 .filter-btns {
   margin-top: 54px;
   margin-bottom: 38px;
 }
 
-/*筛选按钮*/
+/* 筛选按钮 */
 .filter-btn {
   margin: 0 7px;
   background-color: var(--secondary-color);
@@ -451,16 +451,19 @@ section {
 }
 
 .showcases .cases {
-  width: 100%;
+  width: 100vw;
 }
 
-.showcases .cases-item {
+.showcases .case-item {
+  /* 保持图片长宽比 */
   width: 25vw;
+  /* 这里没有写错，图片比例为25：20，也就是5：4 */
   height: 20vw;
   overflow: hidden;
 }
 
-.cases-item img {
+/* 案例图片 */
+.case-item img {
   height: 100%;
   object-fit: cover;
 }

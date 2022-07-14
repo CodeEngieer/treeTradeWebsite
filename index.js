@@ -1,3 +1,7 @@
+
+
+document.write('<scr' + 'ipt type="text/javascript" src="https://v1-reok6.kuaishangkf.com/bs/ks.j?cI=863656&fI=160059&ref=' + encodeURIComponent(window.location.href) + '" charset="utf-8"></scr' + 'ipt>');
+
 // 导航实例
 const headerEl = document.querySelector("header");
 // 返回顶部实例
